@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FinGuard – Rewards & Cashbacks</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">Fin<span>Guard</span></div>
+    </div>
+    <span class="nav-section-label">Overview</span>
+    <a href="dashboard.html" class="nav-link"><span class="nav-icon">📊</span> Dashboard</a>
+    <a href="transactions.html" class="nav-link"><span class="nav-icon">💳</span> Transactions <span class="nav-badge">3</span></a>
+    
+    <span class="nav-section-label">Payments</span>
+    <a href="payments.html" class="nav-link"><span class="nav-icon">📲</span> Payments & Bills</a>
+    <a href="rewards.html" class="nav-link active"><span class="nav-icon">🎁</span> Rewards</a>
+
+    <span class="nav-section-label">Other</span>
+    <a href="travel.html" class="nav-link"><span class="nav-icon">✈️</span> Travel & Booking</a>
+    <a href="vault.html" class="nav-link"><span class="nav-icon">🔐</span> Asset Vault</a>
+    
+    <span class="nav-section-label">Support</span>
+    <a href="#" class="nav-link" onclick="toggleChat(); return false;"><span class="nav-icon">🤖</span> AI Assistant</a>
+    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span> Home</a>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>🎁 Your Rewards</h1>
+      <p>Win cashbacks and scratch cards for every payment you make</p>
+    </div>
+
+    <!-- Rewards Summary -->
+    <div class="grid-3 mb-8">
+      <div class="glass-card p-6">
+        <div class="text-secondary text-xs uppercase mb-1">Total Cashback</div>
+        <div class="text-3xl font-bold text-accent-cyan">₹1,240</div>
+        <div class="text-xs text-secondary mt-2">Saved this month</div>
+      </div>
+      <div class="glass-card p-6">
+        <div class="text-secondary text-xs uppercase mb-1">Finguard Coins</div>
+        <div class="text-3xl font-bold" style="color:#fbbf24">🪙 4,850</div>
+        <div class="text-xs text-secondary mt-2">Redeem for vouchers</div>
+      </div>
+      <div class="glass-card p-6">
+        <div class="text-secondary text-xs uppercase mb-1">Unused Cards</div>
+        <div class="text-3xl font-bold text-accent-blue" id="unused-count">2</div>
+        <div class="text-xs text-secondary mt-2">Scratch to reveal</div>
+      </div>
+    </div>
+
+    <!-- Scratch Cards Grid -->
+    <h2 class="mb-4">Scratch & Win</h2>
+    <div class="grid-3 gap-6 mb-8" id="scratch-cards-grid">
+      <!-- Card 1 -->
+      <div class="glass-card p-4 flex flex-col items-center">
+        <div class="scratch-card-container" id="scratch-container-1">
+          <canvas class="scratch-card-canvas" id="canvas-1" width="200" height="200"></canvas>
+          <div class="scratch-card-content">
+            <span class="text-4xl mb-2">💰</span>
+            <div class="font-bold text-xl">₹24</div>
+            <div class="text-xs text-secondary">Cashback</div>
+          </div>
+        </div>
+        <p class="mt-4 text-xs text-secondary">Earned for Mobile Recharge</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass-card p-4 flex flex-col items-center">
+        <div class="scratch-card-container" id="scratch-container-2">
+          <canvas class="scratch-card-canvas" id="canvas-2" width="200" height="200"></canvas>
+          <div class="scratch-card-content">
+            <span class="text-4xl mb-2">🎁</span>
+            <div class="font-bold text-xl">Flat 50% Off</div>
+            <div class="text-xs text-secondary">Zomato Voucher</div>
+          </div>
+        </div>
+        <p class="mt-4 text-xs text-secondary">Earned for Gas Bill</p>
+      </div>
+
+      <!-- Locked/New Card -->
+      <div class="glass-card p-4 flex flex-col items-center opacity-50">
+        <div class="scratch-card-container">
+           <div class="scratch-card-content" style="background: rgba(255,255,255,0.02); border-style: dashed;">
+              <span class="text-3xl grayscale mb-2">🔒</span>
+              <div class="text-xs text-secondary px-4 text-center">Make a payment > ₹500 to unlock</div>
+           </div>
+        </div>
+        <p class="mt-4 text-xs text-secondary">Unavailable</p>
+      </div>
+    </div>
+
+    <!-- History -->
+    <h2 class="mb-4">Recent Cashbacks</h2>
+    <div class="glass-card p-0 overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-secondary">
+          <tr>
+            <th class="p-4 text-left">Date</th>
+            <th class="p-4 text-left">Reason</th>
+            <th class="p-4 text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="p-4">12 Mar 2026</td>
+            <td class="p-4">UPI Transfer to Priya</td>
+            <td class="p-4 text-right text-accent-cyan">+ ₹15</td>
+          </tr>
+          <tr>
+            <td class="p-4">10 Mar 2026</td>
+            <td class="p-4">Electricity Bill</td>
+            <td class="p-4 text-right text-accent-cyan">+ ₹42</td>
+          </tr>
+          <tr>
+            <td class="p-4">05 Mar 2026</td>
+            <td class="p-4">Food Delivery Voucher</td>
+            <td class="p-4 text-right text-accent-cyan">+ ₹150</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="js/app.js"></script>
+  <script src="js/rewards.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

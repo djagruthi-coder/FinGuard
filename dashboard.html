@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FinGuard – Dashboard</title>
+  <meta name="description" content="FinGuard Dashboard – Overview of your finances, subscriptions, and security alerts."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🛡️</div>
+      <div class="logo-text">Fin<span>Guard</span></div>
+    </div>
+
+    <span class="nav-section-label">Overview</span>
+    <a href="dashboard.html" class="nav-link active">
+      <span class="nav-icon">📊</span> Dashboard
+    </a>
+    <a href="transactions.html" class="nav-link">
+      <span class="nav-icon">💳</span> Transactions
+      <span class="nav-badge">3</span>
+    </a>
+    
+    <span class="nav-section-label">Payments</span>
+    <a href="payments.html" class="nav-link">
+      <span class="nav-icon">📲</span> Payments & Bills
+    </a>
+    <a href="rewards.html" class="nav-link">
+      <span class="nav-icon">🎁</span> Rewards
+    </a>
+
+    <span class="nav-section-label">Other</span>
+    <a href="travel.html" class="nav-link">
+      <span class="nav-icon">✈️</span> Travel & Booking
+    </a>
+    <a href="vault.html" class="nav-link">
+      <span class="nav-icon">🔐</span> Asset Vault
+    </a>
+    
+    <span class="nav-section-label">Support</span>
+    <a href="#" class="nav-link" id="nav-ai" onclick="toggleChat(); return false;">
+      <span class="nav-icon">🤖</span> AI Assistant
+    </a>
+    <a href="index.html" class="nav-link">
+      <span class="nav-icon">🏠</span> Home
+    </a>
+
+    <div class="sidebar-bottom">
+      <div class="nav-link">
+        <div class="user-avatar">AK</div>
+        <div>
+          <div style="font-size:0.8rem;font-weight:600">Arjun Kumar</div>
+          <div style="font-size:0.7rem;color:var(--text-muted)">Premium</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main-content">
+
+    <!-- Page Header -->
+    <div class="page-header flex items-center justify-between">
+      <div>
+        <h1>Good Morning, Arjun 👋</h1>
+        <p>Here's your financial health overview for today, March 14, 2026</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn btn-secondary" onclick="window.location='transactions.html'">View Transactions</button>
+        <button class="btn btn-primary" onclick="toggleChat()">🤖 Ask AI</button>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card glass-card animate-fade-in-up" style="animation-delay:0s">
+        <div class="stat-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.1))">💰</div>
+        <div class="flex items-center justify-between">
+          <div class="stat-label">Total Balance</div>
+          <button class="btn btn-icon btn-sm" onclick="checkBankBalance(this)" title="Refresh from Bank" style="background:none; border:none; cursor:pointer; font-size:0.8rem; filter:grayscale(1)">🔄</button>
+        </div>
+        <div class="stat-value gradient-text">₹4,82,340</div>
+        <div class="stat-change up">↑ +12.4% vs last month</div>
+      </div>
+      <div class="stat-card glass-card animate-fade-in-up" style="animation-delay:0.1s">
+        <div class="stat-icon" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(6,182,212,0.1))">📤</div>
+        <div class="stat-label">Monthly Spend</div>
+        <div class="stat-value" style="color:#60a5fa">₹38,650</div>
+        <div class="stat-change down">↑ +8.2% vs last month</div>
+      </div>
+      <div class="stat-card glass-card animate-fade-in-up" style="animation-delay:0.2s">
+        <div class="stat-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.1))">🔄</div>
+        <div class="stat-label">Active Subscriptions</div>
+        <div class="stat-value" style="color:#fbbf24">8</div>
+        <div class="stat-change" style="color:var(--text-muted)">₹3,847/month total</div>
+      </div>
+      <div class="stat-card glass-card animate-fade-in-up" style="animation-delay:0.3s">
+        <div class="stat-icon" style="background:linear-gradient(135deg,rgba(244,63,94,0.2),rgba(239,68,68,0.1))">🚨</div>
+        <div class="stat-label">Fraud Alerts</div>
+        <div class="stat-value" style="color:#fb7185">3</div>
+        <div class="stat-change down">Requires immediate attention</div>
+      </div>
+    </div>
+
+    <!-- Charts + Recent -->
+    <div style="display:grid;grid-template-columns:1fr 1.8fr;gap:24px;margin-bottom:24px">
+
+      <!-- Spending Donut -->
+      <div class="glass-card" style="padding:24px">
+        <h3 style="font-size:1rem;margin-bottom:4px">Spending Breakdown</h3>
+        <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:20px">March 2026</p>
+        <div style="position:relative;width:200px;margin:0 auto 20px">
+          <canvas id="donutChart"></canvas>
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+            <div style="font-size:1.2rem;font-weight:800">₹38K</div>
+            <div style="font-size:0.65rem;color:var(--text-muted)">Total</div>
+          </div>
+        </div>
+        <div id="donut-legend" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- Line Chart -->
+      <div class="glass-card" style="padding:24px">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 style="font-size:1rem;margin-bottom:4px">Spending Trend</h3>
+            <p style="font-size:0.78rem;color:var(--text-muted)">Last 6 months</p>
+          </div>
+          <div class="flex gap-3">
+            <div style="display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text-muted)">
+              <div style="width:10px;height:10px;border-radius:2px;background:var(--accent-blue)"></div>Spending
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text-muted)">
+              <div style="width:10px;height:10px;border-radius:2px;background:var(--accent-emerald)"></div>Income
+            </div>
+          </div>
+        </div>
+        <canvas id="lineChart" style="max-height:220px"></canvas>
+      </div>
+    </div>
+
+    <!-- Recent Transactions + Subscription Summary -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:24px;margin-bottom:80px">
+
+      <!-- Recent Transactions -->
+      <div class="glass-card" style="padding:24px">
+        <div class="flex items-center justify-between mb-4">
+          <h3 style="font-size:1rem">Recent Transactions</h3>
+          <a href="transactions.html" class="btn btn-sm btn-secondary">View All</a>
+        </div>
+        <div class="table-wrapper">
+          <table id="recent-txns-table">
+            <thead>
+              <tr>
+                <th>Merchant</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recent-txns-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Active Subscriptions -->
+      <div class="glass-card" style="padding:24px">
+        <div class="flex items-center justify-between mb-4">
+          <h3 style="font-size:1rem">Active Subscriptions</h3>
+          <a href="transactions.html#subscriptions" class="btn btn-sm btn-secondary">Manage</a>
+        </div>
+        <div id="subscription-list" style="display:flex;flex-direction:column;gap:10px"></div>
+        <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:16px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:0.8rem;color:var(--text-muted)">Monthly Total</span>
+          <span style="font-weight:700;color:#fbbf24">₹3,847</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── FRAUD ALERT BANNER ── -->
+  <div id="fraud-banner" style="
+    position:fixed;bottom:0;left:var(--nav-width);right:0;
+    background:rgba(244,63,94,0.12);
+    border-top:1px solid rgba(244,63,94,0.3);
+    padding:12px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+    z-index:50;backdrop-filter:blur(10px);">
+    <div style="display:flex;align-items:center;gap:12px;font-size:0.875rem">
+      <span style="font-size:1.2rem">🚨</span>
+      <span><strong style="color:#fb7185">3 suspicious transactions detected</strong> — Immediate review recommended</span>
+    </div>
+    <div style="display:flex;gap:10px">
+      <a href="transactions.html" class="btn btn-sm btn-danger">Review Now</a>
+      <button class="btn btn-sm btn-secondary" onclick="document.getElementById('fraud-banner').remove()">Dismiss</button>
+    </div>
+  </div>
+
+  <!-- ── CHATBOT ── -->
+  <button class="chatbot-trigger" onclick="toggleChat()" id="chat-trigger" title="Ask FinGuard AI">🤖</button>
+  <div class="chatbot-window" id="chatbot-window">
+    <div class="chatbot-header">
+      <div class="bot-avatar">🤖</div>
+      <div class="bot-info">
+        <h4>FinGuard AI</h4>
+        <p>Your financial assistant</p>
+      </div>
+      <div class="status-dot"></div>
+      <button onclick="toggleChat()" style="background:none;border:none;color:white;cursor:pointer;margin-left:8px;font-size:1rem">✕</button>
+    </div>
+    <div class="chatbot-messages" id="chat-messages">
+      <div class="chat-msg bot">
+        👋 Hello! I'm FinGuard AI. I can help you understand your transactions, subscriptions, fraud alerts, and manage your digital assets.<br/><br/>
+        <strong>Quick questions:</strong><br/>
+        • "What are my active subscriptions?"<br/>
+        • "Explain my fraud alerts"<br/>
+        • "How can I protect my assets?"
+      </div>
+    </div>
+    <div class="chatbot-input-area">
+      <input type="text" id="chat-input" placeholder="Ask about your finances..." onkeydown="if(event.key==='Enter') sendChat()"/>
+      <button class="chatbot-send" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/transactions.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script>
+    // Dashboard init
+    renderRecentTransactions();
+    renderSubscriptionSummary();
+    initCharts();
+  </script>
+</body>
+</html>

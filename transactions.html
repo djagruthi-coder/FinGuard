@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FinGuard– Transactions</title>
   <meta name="description" content="Monitor your transactions, detect fraud, and track subscriptions with FinGuard."/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
@@ -41,11 +41,17 @@
     </a>
 
     <span class="nav-section-label">Support</span>
+    <a href="profile.html" class="nav-link">
+      <span class="nav-icon">👤</span> Profile
+    </a>
     <a href="#" class="nav-link" onclick="toggleChat(); return false;">
       <span class="nav-icon">🤖</span> AI Assistant
     </a>
     <a href="index.html" class="nav-link">
       <span class="nav-icon">🏠</span> Home
+    </a>
+    <a href="#" class="nav-link" onclick="logout(); return false;">
+      <span class="nav-icon">🚪</span> Logout
     </a>
     <div class="sidebar-bottom">
       <div class="nav-link">
@@ -69,6 +75,7 @@
       </div>
       <div class="flex gap-3">
         <button class="btn btn-secondary" onclick="exportTransactions()">📥 Export CSV</button>
+        <button class="btn btn-secondary" onclick="startVoiceAssistant()">🎙 Voice</button>
         <button class="btn btn-primary" onclick="toggleChat()">🤖 Ask AI</button>
       </div>
     </div>
@@ -163,8 +170,16 @@
         <h4>FinGuard AI</h4>
         <p>Your financial assistant</p>
       </div>
-      <div class="status-dot"></div>
-      <button onclick="toggleChat()" style="background:none;border:none;color:white;cursor:pointer;margin-left:8px;font-size:1rem">✕</button>
+      <div class="chat-controls" style="display:flex;align-items:center;gap:8px;margin-left:auto">
+        <select id="chat-lang" title="Select voice language" style="border-radius:999px;padding:6px 10px;font-size:0.8rem;border:1px solid rgba(255,255,255,0.25);background:rgba(0,0,0,0.2);color:white">
+          <option value="en-US" selected>English</option>
+          <option value="hi-IN">हिन्दी</option>
+          <option value="te-IN">తెలుగు</option>
+        </select>
+        <button id="chat-voice-btn" title="Speak your question" style="background:none;border:none;color:white;cursor:pointer;font-size:1.2rem">🎙️</button>
+        <div class="status-dot"></div>
+        <button onclick="toggleChat()" style="background:none;border:none;color:white;cursor:pointer;margin-left:8px;font-size:1rem">✕</button>
+      </div>
     </div>
     <div class="chatbot-messages" id="chat-messages">
       <div class="chat-msg bot">
@@ -182,9 +197,11 @@
   </div>
 
   <div class="toast-container" id="toast-container"></div>
-  <script src="app.js"></script>
-  <script src="transactions.js"></script>
-  <script src="chatbot.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/transactions.js"></script>
+  <script src="js/chatbot.js"></script>
   <script>
     initTransactionsPage();
   </script>

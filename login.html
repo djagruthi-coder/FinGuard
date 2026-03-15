@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinGuard – Login</title>
+  <meta name="description" content="Login to FinGuard to access your dashboard." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* FinGuard-style login page overrides */
+    body.login-body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+      background: radial-gradient(circle at top, #ffffff 0%, #f3f3f9 65%, rgba(95, 37, 159, 0.05) 100%);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      background: white;
+    }
+
+    .login-brand {
+      padding: 24px 22px 18px;
+      text-align: center;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      color: #fff;
+    }
+
+    .login-brand h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .login-brand p {
+      margin: 8px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .login-card {
+      padding: 22px 22px 26px;
+    }
+
+    .login-heading {
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 18px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #6f6f80;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 14px;
+      border: 1px solid rgba(32, 32, 36, 0.18);
+      border-radius: 18px;
+      font-size: 1rem;
+      outline: none;
+      background: #fbfbff;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus {
+      border-color: #5f259f;
+      box-shadow: 0 0 0 3px rgba(95, 37, 159, 0.15);
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: #5f259f;
+      color: white;
+      box-shadow: 0 12px 22px rgba(95, 37, 159, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: #7a35be;
+    }
+
+    .login-message {
+      font-size: 0.85rem;
+      margin-top: 12px;
+      min-height: 1.2rem;
+      color: #d93025;
+      text-align: center;
+    }
+
+    .login-helper {
+      font-size: 0.85rem;
+      color: #6f6f80;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .login-footer {
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(0, 0, 0, 0.55);
+      padding: 14px 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    @media (max-width: 360px) {
+      .login-brand h1 {
+        font-size: 1.7rem;
+      }
+
+      .login-heading {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+<body class="login-body">
+  <main class="login-container" aria-label="FinGuard login card">
+    <header class="login-brand">
+      <h1>FinGuard</h1>
+      <p>Smart financial protection</p>
+    </header>
+
+    <section class="login-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">
+        <div>
+          <h2 class="login-heading" style="margin:0">Login / Sign in</h2>
+          <div style="font-size:0.85rem;color:rgba(0,0,0,0.55);margin-top:4px">Tap the mic and speak to fill fields</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <select id="voice-lang" title="Select voice language" style="border-radius:12px;padding:10px 12px;font-size:0.9rem;border:1px solid rgba(32,32,36,0.18);background:#fbfbff">
+            <option value="en-US">English</option>
+            <option value="hi-IN">हिन्दी</option>
+            <option value="te-IN">తెలుగు</option>
+            <option value="ta-IN">தமிழ்</option>
+          </select>
+          <button id="voiceBtn" type="button" style="width:44px;height:44px;border-radius:18px;border:none;background:#5f259f;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 10px 18px rgba(95,37,159,0.25);">
+            🎤
+          </button>
+        </div>
+      </div>
+
+      <form id="login-form" autocomplete="off" novalidate>
+        <div class="field">
+          <label for="fullName">Full name</label>
+          <input
+            id="fullName"
+            type="text"
+            autocomplete="name"
+            minlength="2"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="mobile">Mobile number</label>
+          <input
+            id="mobile"
+            type="tel"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="10"
+            placeholder="Enter mobile number"
+            autocomplete="tel"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="bank">Bank account number</label>
+          <input
+            id="bank"
+            type="text"
+            autocomplete="organization"
+            placeholder="Enter bank account number"
+          />
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Proceed</button>
+        </div>
+
+        <div id="message" class="login-message" aria-live="polite"></div>
+
+        <p class="login-helper">
+          This is a demo login page. No real authentication is performed.
+        </p>
+      </form>
+    </section>
+
+    <footer class="login-footer">
+      Secure payments powered by FinGuard
+    </footer>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
